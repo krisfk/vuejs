@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+
+<body>
+<div id="app">
+  <h2> {{product}} are in stock </h2>
+  <ul>
+    <li v-for="item in items"> {{item}} </li>
+  </ul>
+  
+  <ul>
+    <li v-for="thing in things"> {{thing}} </li>
+  </ul>
+  
+</div>
+<script type="text/javascript">
+const app = new Vue({
+	el: '#app',
+	data:{
+		product: 'boots',
+		items:[
+			'item1',
+			'item2',
+			'item3',
+			'item4'
+		],
+		things:[]
+	},
+
+	created(){
+//	console.log('11');
+	fetch('https://api.myjson.com/bins/74l63')
+	.then(response => response.json())
+	.then(json =>{
+		this.things = json.products;
+	//	console.log(json.name);
+	})
+}
+	
+})
+	
+
+	
+	
+
+
+;
+
+	
+</script>
+</body>
+</html>
