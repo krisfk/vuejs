@@ -17,6 +17,49 @@
     <li v-for="thing in things"> {{thing}} </li>
   </ul>
   
+   <ul>
+    <li v-for="thing in things"> {{thing.name}}  </li>
+  </ul>
+
+
+  
+   <ul>
+    <li v-for="thing in things"> {{thing.name}}  {{thing.quantity}} </li>
+  </ul>
+
+  
+  <ul>
+    <li v-for="thing in things"> {{thing.name}}  {{thing.quantity}} 
+    <span v-if="thing.quantity==0" style="color: #f00;">
+    	out of stock
+    </span>
+    </li>
+  </ul>
+  
+  
+  <ul>
+    <li v-for="thing in things">
+    
+         <input type="text" v-model.number="thing.quantity"></input>
+ 
+    {{thing.name}}  {{thing.quantity}} 
+    <span v-if="thing.quantity==0" style="color: #f00;">
+    	out of stock
+    </span>
+  <button @click="thing.quantity+=1">Add</button>
+      
+        </li> 
+  </ul>
+  
+  
+  
+  
+  Total Inventory: {{totalThings}}
+
+  
+
+  
+      
 </div>
 <script type="text/javascript">
 const app = new Vue({
@@ -33,23 +76,25 @@ const app = new Vue({
 	},
 
 	created(){
-//	console.log('11');
 	fetch('https://api.myjson.com/bins/74l63')
 	.then(response => response.json())
 	.then(json =>{
 		this.things = json.products;
-	//	console.log(json.name);
 	})
-}
+	},
 	
-})
-	
+	computed: {
 
+		totalThings(){
+			return this.things.reduce((sum,thing)=>{return sum + thing.quantity},0);
+		}
+
+	}
 	
 	
-
-
-;
+	
+	
+});
 
 	
 </script>
